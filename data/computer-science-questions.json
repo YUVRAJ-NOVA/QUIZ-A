@@ -1,0 +1,196 @@
+{
+  "questions": [
+    {
+      "id": "cs-1",
+      "topic": "programming",
+      "text": "What will be the output of the following code snippet?\n\nlet x = 5;\nlet y = '5';\nconsole.log(x == y);\nconsole.log(x === y);",
+      "options": [
+        {"id": "A", "text": "true, true"},
+        {"id": "B", "text": "false, false"},
+        {"id": "C", "text": "true, false"},
+        {"id": "D", "text": "false, true"}
+      ],
+      "correctAnswer": "C",
+      "explanation": "In JavaScript, == performs type coercion, so 5 == '5' is true. However, === checks both value and type, so 5 === '5' is false because one is a number and the other is a string.",
+      "difficulty": 0.5,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "code"
+    },
+    {
+      "id": "cs-2",
+      "topic": "algorithms",
+      "text": "What is the time complexity of a binary search algorithm?",
+      "options": [
+        {"id": "A", "text": "O(1)"},
+        {"id": "B", "text": "O(log n)"},
+        {"id": "C", "text": "O(n)"},
+        {"id": "D", "text": "O(n²)"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "Binary search has a time complexity of O(log n) because it divides the search interval in half with each comparison.",
+      "difficulty": 0.6,
+      "discrimination": 0.85,
+      "guessing": 0.25,
+      "visual": "binarysearch"
+    },
+    {
+      "id": "cs-3",
+      "topic": "data-structures",
+      "text": "Which data structure uses LIFO (Last In, First Out) principle?",
+      "options": [
+        {"id": "A", "text": "Queue"},
+        {"id": "B", "text": "Stack"},
+        {"id": "C", "text": "Linked List"},
+        {"id": "D", "text": "Binary Tree"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "A stack follows the Last In, First Out (LIFO) principle, where the last element added is the first one to be removed.",
+      "difficulty": 0.45,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": "stack"
+    },
+    {
+      "id": "cs-4",
+      "topic": "computer-systems",
+      "text": "What is the purpose of a cache in computer architecture?",
+      "options": [
+        {"id": "A", "text": "To provide temporary additional storage"},
+        {"id": "B", "text": "To speed up memory access by storing frequently used data"},
+        {"id": "C", "text": "To encrypt sensitive data"},
+        {"id": "D", "text": "To compress large files"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "A cache is a hardware or software component that stores data so that future requests for that data can be served faster. It speeds up memory access by storing frequently or recently used data.",
+      "difficulty": 0.55,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "cache"
+    },
+    {
+      "id": "cs-5",
+      "topic": "programming",
+      "text": "What is the result of the following Python code?\n\nresult = 0\nfor i in range(5):\n    result += i\nprint(result)",
+      "options": [
+        {"id": "A", "text": "5"},
+        {"id": "B", "text": "10"},
+        {"id": "C", "text": "15"},
+        {"id": "D", "text": "20"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "This code adds the numbers from 0 to 4: 0 + 1 + 2 + 3 + 4 = 10, so the output will be 10.",
+      "difficulty": 0.4,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": "code"
+    },
+    {
+      "id": "cs-6",
+      "topic": "algorithms",
+      "text": "Which sorting algorithm has the best average case time complexity?",
+      "options": [
+        {"id": "A", "text": "Bubble Sort"},
+        {"id": "B", "text": "Selection Sort"},
+        {"id": "C", "text": "Merge Sort"},
+        {"id": "D", "text": "Quick Sort"}
+      ],
+      "correctAnswer": "D",
+      "explanation": "Among these options, Quick Sort has the best average case time complexity of O(n log n), and in practice, it is often faster than other O(n log n) algorithms like Merge Sort due to better constant factors and cache performance.",
+      "difficulty": 0.7,
+      "discrimination": 0.85,
+      "guessing": 0.25,
+      "visual": "sorting"
+    },
+    {
+      "id": "cs-7",
+      "topic": "data-structures",
+      "text": "What is the main advantage of using a hash table?",
+      "options": [
+        {"id": "A", "text": "Guaranteed O(1) worst-case time complexity"},
+        {"id": "B", "text": "Ordered elements"},
+        {"id": "C", "text": "O(1) average case lookup time"},
+        {"id": "D", "text": "Memory efficiency"}
+      ],
+      "correctAnswer": "C",
+      "explanation": "The main advantage of hash tables is their O(1) average case lookup time. However, their worst-case time complexity can be O(n) in case of many collisions.",
+      "difficulty": 0.65,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "hashtable"
+    },
+    {
+      "id": "cs-8",
+      "topic": "computer-systems",
+      "text": "What is the primary function of an operating system?",
+      "options": [
+        {"id": "A", "text": "To provide a user interface"},
+        {"id": "B", "text": "To manage hardware resources"},
+        {"id": "C", "text": "To run applications"},
+        {"id": "D", "text": "To provide internet connectivity"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "The primary function of an operating system is to manage computer hardware resources, including CPU, memory, disk space, and peripheral devices. It also provides services to programs and users.",
+      "difficulty": 0.5,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": "os"
+    },
+    {
+      "id": "cs-9",
+      "topic": "programming",
+      "text": "Which of the following is NOT a feature of object-oriented programming?",
+      "options": [
+        {"id": "A", "text": "Encapsulation"},
+        {"id": "B", "text": "Inheritance"},
+        {"id": "C", "text": "Polymorphism"},
+        {"id": "D", "text": "Hoisting"}
+      ],
+      "correctAnswer": "D",
+      "explanation": "Hoisting is a JavaScript concept related to how variable and function declarations are processed during the compilation phase, not a feature of object-oriented programming. The main features of OOP are encapsulation, inheritance, and polymorphism.",
+      "difficulty": 0.6,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "oop"
+    },
+    {
+      "id": "cs-10",
+      "topic": "algorithms",
+      "text": "What algorithmic technique does Dijkstra's algorithm use to find the shortest path?",
+      "options": [
+        {"id": "A", "text": "Divide and conquer"},
+        {"id": "B", "text": "Dynamic programming"},
+        {"id": "C", "text": "Greedy algorithm"},
+        {"id": "D", "text": "Backtracking"}
+      ],
+      "correctAnswer": "C",
+      "explanation": "Dijkstra's algorithm uses a greedy approach to find the shortest path in a graph. It works by repeatedly selecting the vertex with the minimum distance from the source.",
+      "difficulty": 0.75,
+      "discrimination": 0.85,
+      "guessing": 0.25,
+      "visual": "graph"
+    }
+  ],
+  "topicStructure": {
+    "programming": {
+      "name": "Programming",
+      "description": "The process of creating a set of instructions that tell a computer how to perform a task",
+      "prerequisites": []
+    },
+    "algorithms": {
+      "name": "Algorithms",
+      "description": "Step-by-step procedures for solving problems or performing tasks",
+      "prerequisites": ["programming"]
+    },
+    "data-structures": {
+      "name": "Data Structures",
+      "description": "Specialized formats for organizing and storing data",
+      "prerequisites": ["programming"]
+    },
+    "computer-systems": {
+      "name": "Computer Systems",
+      "description": "The combination of hardware and software components that make up a complete computer system",
+      "prerequisites": ["programming"]
+    }
+  }
+} 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Data Check</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    pre {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 4px;
+      overflow: auto;
+    }
+    .log-container {
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      height: 400px;
+      overflow-y: auto;
+    }
+    .log-entry {
+      margin: 5px 0;
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    .error {
+      color: #d9534f;
+    }
+    .success {
+      color: #5cb85c;
+    }
+    .info {
+      color: #5bc0de;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz Data Check</h1>
+    <p>This page checks if the quiz data files can be loaded correctly.</p>
+    
+    <button id="checkBtn">Check Data Files</button>
+    
+    <div class="log-container" id="logContainer"></div>
+  </div>
+
+  <script>
+    // Override console logging to display in the container
+    const logContainer = document.getElementById('logContainer');
+    
+    const originalConsoleLog = console.log;
+    const originalConsoleError = console.error;
+    
+    console.log = function(...args) {
+      originalConsoleLog.apply(console, args);
+      const logEntry = document.createElement('div');
+      logEntry.className = 'log-entry info';
+      logEntry.textContent = args.join(' ');
+      logContainer.appendChild(logEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    };
+    
+    console.error = function(...args) {
+      originalConsoleError.apply(console, args);
+      const logEntry = document.createElement('div');
+      logEntry.className = 'log-entry error';
+      logEntry.textContent = args.join(' ');
+      logContainer.appendChild(logEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    };
+    
+    // Check data files function
+    async function checkDataFiles() {
+      const subjects = ['mathematics', 'computer-science', 'science'];
+      
+      console.log('Starting data files check...');
+      
+      for (const subject of subjects) {
+        try {
+          const filePath = `data/${subject}-questions.json`;
+          console.log(`Attempting to load: ${filePath}`);
+          
+          const response = await fetch(filePath);
+          if (!response.ok) {
+            console.error(`Failed to load ${subject} questions: ${response.status} - ${response.statusText}`);
+            continue;
+          }
+          
+          const data = await response.json();
+          console.log(`Successfully loaded ${subject} data:`);
+          console.log(`- Questions: ${data.questions.length}`);
+          console.log(`- Topics: ${Object.keys(data.topicStructure).length}`);
+          console.log('- Topics:', Object.keys(data.topicStructure).join(', '));
+        } catch (error) {
+          console.error(`Error loading ${subject} data:`, error);
+        }
+      }
+    }
+    
+    // Add event listener to button
+    document.getElementById('checkBtn').addEventListener('click', checkDataFiles);
+    
+    // Run the check on page load
+    document.addEventListener('DOMContentLoaded', checkDataFiles);
+  </script>
+</body>
+</html> 

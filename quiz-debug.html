@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ'A - Debug Tool</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2a0944;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1, h2 {
+            color: #6E44FF;
+            margin-top: 0;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            background-color: #6E44FF;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5933d5;
+        }
+        .debug-panel {
+            height: 300px;
+            overflow-y: auto;
+            background-color: #000;
+            color: #00ff00;
+            padding: 10px;
+            font-family: monospace;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .success { background-color: #4CAF50; }
+        .error { background-color: #F44336; }
+        .warning { background-color: #FFC107; }
+        .status-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .status-label {
+            margin-right: 10px;
+            width: 200px;
+        }
+        select, input {
+            padding: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+        select option {
+            background-color: #2a0944;
+        }
+        .quiz-status {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .log-entry {
+            margin: 0 0 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 3px;
+        }
+        .log-success { color: #4CAF50; }
+        .log-error { color: #F44336; }
+        .log-warning { color: #FFC107; }
+        .log-info { color: #2196F3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QUIZ'A Debug Tool</h1>
+        
+        <div class="section">
+            <h2>System Status</h2>
+            <div class="status-row">
+                <span class="status-label">LocalStorage:</span>
+                <span class="status-indicator" id="localStorage-status"></span>
+                <span id="localStorage-message">Checking...</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">GSAP Library:</span>
+                <span class="status-indicator" id="gsap-status"></span>
+                <span id="gsap-message">Checking...</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Chart.js Library:</span>
+                <span class="status-indicator" id="chart-status"></span>
+                <span id="chart-message">Checking...</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Questions Data:</span>
+                <span class="status-indicator" id="data-status"></span>
+                <span id="data-message">Checking...</span>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Subject Testing</h2>
+            <div class="controls">
+                <select id="subject-select">
+                    <option value="mathematics">Mathematics</option>
+                    <option value="computer-science">Computer Science</option>
+                    <option value="science">Science</option>
+                </select>
+                <button id="load-subject">Load Subject Data</button>
+                <button id="clear-storage">Clear LocalStorage</button>
+            </div>
+            
+            <div class="quiz-status" id="quiz-status">No subject selected</div>
+            
+            <div class="debug-panel" id="debug-panel"></div>
+            
+            <div class="controls">
+                <button id="view-storage">View LocalStorage Data</button>
+                <button id="fix-errors">Attempt Auto-Fix</button>
+                <button id="clear-log">Clear Log</button>
+                <button id="start-quiz">Launch Quiz</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const localStorageStatus = document.getElementById('localStorage-status');
+            const localStorageMessage = document.getElementById('localStorage-message');
+            const gsapStatus = document.getElementById('gsap-status');
+            const gsapMessage = document.getElementById('gsap-message');
+            const chartStatus = document.getElementById('chart-status');
+            const chartMessage = document.getElementById('chart-message');
+            const dataStatus = document.getElementById('data-status');
+            const dataMessage = document.getElementById('data-message');
+            const debugPanel = document.getElementById('debug-panel');
+            const subjectSelect = document.getElementById('subject-select');
+            const loadSubjectBtn = document.getElementById('load-subject');
+            const clearStorageBtn = document.getElementById('clear-storage');
+            const viewStorageBtn = document.getElementById('view-storage');
+            const fixErrorsBtn = document.getElementById('fix-errors');
+            const clearLogBtn = document.getElementById('clear-log');
+            const startQuizBtn = document.getElementById('start-quiz');
+            const quizStatus = document.getElementById('quiz-status');
+            
+            // Check system status
+            checkLocalStorage();
+            checkGSAP();
+            checkChartJS();
+            checkQuestionsData();
+            
+            // Add event listeners
+            loadSubjectBtn.addEventListener('click', loadSubjectData);
+            clearStorageBtn.addEventListener('click', clearLocalStorage);
+            viewStorageBtn.addEventListener('click', viewLocalStorage);
+            fixErrorsBtn.addEventListener('click', attemptAutoFix);
+            clearLogBtn.addEventListener('click', clearLog);
+            startQuizBtn.addEventListener('click', launchQuiz);
+            
+            // Log to debug panel
+            function log(message, type = 'info') {
+                const entry = document.createElement('div');
+                entry.className = `log-entry log-${type}`;
+                entry.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+                debugPanel.appendChild(entry);
+                debugPanel.scrollTop = debugPanel.scrollHeight;
+            }
+            
+            // Check LocalStorage
+            function checkLocalStorage() {
+                try {
+                    localStorage.setItem('test', 'test');
+                    localStorage.removeItem('test');
+                    localStorageStatus.className = 'status-indicator success';
+                    localStorageMessage.textContent = 'Available and working properly';
+                    
+                    // Check if subject is already selected
+                    const selectedSubject = localStorage.getItem('selectedSubject');
+                    if (selectedSubject) {
+                        log(`Found existing subject in localStorage: ${selectedSubject}`, 'info');
+                        
+                        if (subjectSelect) {
+                            subjectSelect.value = selectedSubject;
+                        }
+                        
+                        updateQuizStatus(selectedSubject);
+                    }
+                } catch (e) {
+                    localStorageStatus.className = 'status-indicator error';
+                    localStorageMessage.textContent = 'Error: ' + e.message;
+                    log('LocalStorage error: ' + e.message, 'error');
+                }
+            }
+            
+            // Check GSAP
+            function checkGSAP() {
+                if (typeof gsap !== 'undefined') {
+                    gsapStatus.className = 'status-indicator success';
+                    gsapMessage.textContent = `Loaded (version: ${gsap.version})`;
+                } else {
+                    gsapStatus.className = 'status-indicator error';
+                    gsapMessage.textContent = 'Not loaded';
+                    log('GSAP library is not loaded. Animations will be disabled.', 'warning');
+                }
+            }
+            
+            // Check Chart.js
+            function checkChartJS() {
+                if (typeof Chart !== 'undefined') {
+                    chartStatus.className = 'status-indicator success';
+                    chartMessage.textContent = `Loaded (version: ${Chart.version})`;
+                } else {
+                    chartStatus.className = 'status-indicator error';
+                    chartMessage.textContent = 'Not loaded';
+                    log('Chart.js library is not loaded. Visualizations will be disabled.', 'warning');
+                }
+            }
+            
+            // Check Questions Data
+            async function checkQuestionsData() {
+                dataStatus.className = 'status-indicator warning';
+                dataMessage.textContent = 'Checking...';
+                
+                try {
+                    let allDataValid = true;
+                    const subjects = ['mathematics', 'computer-science', 'science'];
+                    
+                    for (const subject of subjects) {
+                        const response = await fetch(`data/${subject}-questions.json`);
+                        
+                        if (!response.ok) {
+                            allDataValid = false;
+                            log(`Failed to load ${subject} questions: ${response.status} ${response.statusText}`, 'error');
+                            continue;
+                        }
+                        
+                        try {
+                            const data = await response.json();
+                            if (!data.questions || !data.topicStructure) {
+                                allDataValid = false;
+                                log(`${subject} data file is missing required fields`, 'error');
+                            } else {
+                                log(`${subject} data loaded: ${data.questions.length} questions, ${Object.keys(data.topicStructure).length} topics`, 'success');
+                            }
+                        } catch (e) {
+                            allDataValid = false;
+                            log(`${subject} data parse error: ${e.message}`, 'error');
+                        }
+                    }
+                    
+                    if (allDataValid) {
+                        dataStatus.className = 'status-indicator success';
+                        dataMessage.textContent = 'All question data loaded successfully';
+                    } else {
+                        dataStatus.className = 'status-indicator error';
+                        dataMessage.textContent = 'Some data files have issues (see log)';
+                    }
+                } catch (e) {
+                    dataStatus.className = 'status-indicator error';
+                    dataMessage.textContent = 'Error: ' + e.message;
+                    log('Error checking questions data: ' + e.message, 'error');
+                }
+            }
+            
+            // Load Subject Data
+            async function loadSubjectData() {
+                const subject = subjectSelect.value;
+                
+                log(`Loading ${subject} data...`, 'info');
+                
+                try {
+                    const response = await fetch(`data/${subject}-questions.json`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Validate data structure
+                    if (!data.questions || !data.topicStructure) {
+                        throw new Error('Data file is missing required fields');
+                    }
+                    
+                    // Save to localStorage
+                    localStorage.setItem('selectedSubject', subject);
+                    
+                    log(`Successfully loaded ${subject} data: ${data.questions.length} questions`, 'success');
+                    log(`Topics: ${Object.keys(data.topicStructure).join(', ')}`, 'info');
+                    
+                    updateQuizStatus(subject);
+                    
+                    return true;
+                } catch (e) {
+                    log(`Error loading ${subject} data: ${e.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            // Clear LocalStorage
+            function clearLocalStorage() {
+                try {
+                    localStorage.clear();
+                    log('LocalStorage cleared successfully', 'success');
+                    updateQuizStatus(null);
+                } catch (e) {
+                    log('Error clearing localStorage: ' + e.message, 'error');
+                }
+            }
+            
+            // View LocalStorage
+            function viewLocalStorage() {
+                try {
+                    log('--- LocalStorage Contents ---', 'info');
+                    
+                    if (localStorage.length === 0) {
+                        log('LocalStorage is empty', 'info');
+                        return;
+                    }
+                    
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        let value = localStorage.getItem(key);
+                        
+                        // Attempt to pretty-print JSON
+                        try {
+                            const parsed = JSON.parse(value);
+                            value = JSON.stringify(parsed, null, 2);
+                        } catch (e) {
+                            // Not JSON, leave as is
+                        }
+                        
+                        log(`${key}: ${value}`, 'info');
+                    }
+                } catch (e) {
+                    log('Error reading localStorage: ' + e.message, 'error');
+                }
+            }
+            
+            // Attempt Auto-Fix
+            async function attemptAutoFix() {
+                log('Attempting to fix common issues...', 'info');
+                
+                // 1. Check and fix localStorage
+                try {
+                    localStorage.setItem('test', 'test');
+                    localStorage.removeItem('test');
+                    log('LocalStorage is working properly', 'success');
+                } catch (e) {
+                    log('Cannot fix localStorage issues in this browser', 'error');
+                }
+                
+                // 2. Check for missing subject selection
+                const subject = localStorage.getItem('selectedSubject');
+                if (!subject) {
+                    localStorage.setItem('selectedSubject', subjectSelect.value);
+                    log(`Set selectedSubject to ${subjectSelect.value}`, 'success');
+                }
+                
+                // 3. Validate data files exist
+                const subjects = ['mathematics', 'computer-science', 'science'];
+                let dataFixed = true;
+                
+                for (const subject of subjects) {
+                    try {
+                        const response = await fetch(`data/${subject}-questions.json`);
+                        
+                        if (!response.ok) {
+                            log(`Data file for ${subject} is missing or inaccessible`, 'error');
+                            dataFixed = false;
+                        }
+                    } catch (e) {
+                        log(`Error checking ${subject} data: ${e.message}`, 'error');
+                        dataFixed = false;
+                    }
+                }
+                
+                if (dataFixed) {
+                    log('All data files are accessible', 'success');
+                }
+                
+                // 4. Update quiz status
+                updateQuizStatus(localStorage.getItem('selectedSubject'));
+                
+                log('Auto-fix complete', 'info');
+            }
+            
+            // Clear Log
+            function clearLog() {
+                debugPanel.innerHTML = '';
+                log('Log cleared', 'info');
+            }
+            
+            // Launch Quiz
+            function launchQuiz() {
+                const subject = localStorage.getItem('selectedSubject') || subjectSelect.value;
+                
+                if (!subject) {
+                    log('No subject selected. Please select a subject first.', 'error');
+                    return;
+                }
+                
+                localStorage.setItem('selectedSubject', subject);
+                log(`Launching quiz with subject: ${subject}...`, 'info');
+                
+                // Redirect to quiz page
+                window.location.href = 'quiz.html';
+            }
+            
+            // Update Quiz Status
+            function updateQuizStatus(subject) {
+                if (!subject) {
+                    quizStatus.textContent = 'No subject selected';
+                    quizStatus.style.color = '#FFC107';
+                    return;
+                }
+                
+                quizStatus.textContent = `Ready to start quiz with subject: ${subject}`;
+                quizStatus.style.color = '#4CAF50';
+            }
+        });
+    </script>
+</body>
+</html> 

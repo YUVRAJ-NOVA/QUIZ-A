@@ -1,0 +1,23 @@
+{
+  "name": "QUIZ'A - Adaptive Learning Experience",
+  "short_name": "QUIZ'A",
+  "description": "An AI-powered adaptive quiz experience that evolves with your knowledge",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2A0944",
+  "theme_color": "#6E44FF",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

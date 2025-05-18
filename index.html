@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ'A - Adaptive Learning Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2A0944">
+    <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <span class="logo-text">Q</span>
+                <div class="logo-orbit">
+                    <div class="logo-planet"></div>
+                </div>
+            </div>
+            <h1>QUIZ'A</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="subject-selection.html" class="cta-button">Start Quiz</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">Redefining <span class="highlight">Adaptive Learning</span></h2>
+                <p class="hero-subtitle">An AI-powered quiz experience that evolves with your knowledge</p>
+                <a href="subject-selection.html" class="cta-button primary">Begin Your Journey</a>
+                <a href="#features" class="cta-button secondary">Explore Features</a>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-elements">
+                    <div class="floating-element" id="element1"></div>
+                    <div class="floating-element" id="element2"></div>
+                    <div class="floating-element" id="element3"></div>
+                    <div class="floating-element" id="element4"></div>
+                    <div class="floating-element" id="element5"></div>
+                </div>
+                <div class="brain-visualization">
+                    <div class="brain-container">
+                        <div class="brain-node" id="node1"></div>
+                        <div class="brain-node" id="node2"></div>
+                        <div class="brain-node" id="node3"></div>
+                        <div class="brain-node" id="node4"></div>
+                        <div class="brain-node" id="node5"></div>
+                        <div class="brain-node" id="node6"></div>
+                        <div class="brain-node" id="node7"></div>
+                        <div class="brain-connection" id="connection1"></div>
+                        <div class="brain-connection" id="connection2"></div>
+                        <div class="brain-connection" id="connection3"></div>
+                        <div class="brain-connection" id="connection4"></div>
+                        <div class="brain-connection" id="connection5"></div>
+                        <div class="brain-connection" id="connection6"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2 class="section-title">Cutting-Edge <span class="highlight">Features</span></h2>
+            <div class="features-grid">
+                <div class="feature-card" data-feature="irt">
+                    <div class="feature-icon">
+                        <div class="icon-irt"></div>
+                    </div>
+                    <h3>Item Response Theory</h3>
+                    <p>Questions adapt to your skill level in real-time, providing the perfect challenge</p>
+                </div>
+                <div class="feature-card" data-feature="bkt">
+                    <div class="feature-icon">
+                        <div class="icon-bkt"></div>
+                    </div>
+                    <h3>Bayesian Knowledge Tracking</h3>
+                    <p>Sophisticated algorithms track your concept mastery with precision</p>
+                </div>
+                <div class="feature-card" data-feature="ts">
+                    <div class="feature-icon">
+                        <div class="icon-ts"></div>
+                    </div>
+                    <h3>Thompson Sampling</h3>
+                    <p>Balances exploring new topics and reinforcing your strengths</p>
+                </div>
+                <div class="feature-card" data-feature="ui">
+                    <div class="feature-icon">
+                        <div class="icon-ui"></div>
+                    </div>
+                    <h3>Immersive Interface</h3>
+                    <p>Full-viewport experience with fluid microinteractions and visualizations</p>
+                </div>
+                <div class="feature-card" data-feature="offline">
+                    <div class="feature-icon">
+                        <div class="icon-offline"></div>
+                    </div>
+                    <h3>Offline Support</h3>
+                    <p>Complete functionality even without an internet connection</p>
+                </div>
+                <div class="feature-card" data-feature="performance">
+                    <div class="feature-icon">
+                        <div class="icon-performance"></div>
+                    </div>
+                    <h3>Blazing Performance</h3>
+                    <p>Lightning-fast response times with global CDN delivery</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works">
+            <h2 class="section-title">How <span class="highlight">It Works</span></h2>
+            <div class="process-timeline">
+                <div class="process-step" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Initial Assessment</h3>
+                        <p>Begin with calibration questions to establish your baseline knowledge</p>
+                    </div>
+                </div>
+                <div class="process-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Adaptive Selection</h3>
+                        <p>Our algorithm selects the most informative next question based on your responses</p>
+                    </div>
+                </div>
+                <div class="process-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Real-time Analysis</h3>
+                        <p>Your knowledge model updates instantly with each answer</p>
+                    </div>
+                </div>
+                <div class="process-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Concept Mapping</h3>
+                        <p>Visualize your strengths and areas for improvement across topics</p>
+                    </div>
+                </div>
+                <div class="process-step" data-step="5">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Personalized Reports</h3>
+                        <p>Receive detailed insights and recommendations for your learning journey</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to transform your learning experience?</h2>
+                <p>QUIZ'A adapts to your unique knowledge profile, making every question count.</p>
+                <a href="subject-selection.html" class="cta-button primary">Start Your Quiz</a>
+            </div>
+            <div class="cta-visual">
+                <div class="particle-container">
+                    <div class="particle" id="p1"></div>
+                    <div class="particle" id="p2"></div>
+                    <div class="particle" id="p3"></div>
+                    <div class="particle" id="p4"></div>
+                    <div class="particle" id="p5"></div>
+                    <div class="particle" id="p6"></div>
+                    <div class="particle" id="p7"></div>
+                    <div class="particle" id="p8"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo">
+                    <span class="logo-text">Q</span>
+                    <div class="logo-orbit">
+                        <div class="logo-planet"></div>
+                    </div>
+                </div>
+                <h2>QUIZ'A</h2>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 QUIZ'A. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="main.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>

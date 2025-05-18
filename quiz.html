@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QUIZ'A - Adaptive Quiz Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="quiz-styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2A0944">
+    <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload essential libraries with fallback handling -->
+    <script>
+        // Define fallback implementations
+        window.fallbackGSAP = {
+            to: function(element, props) {
+                // Simple fallback for GSAP animations
+                if (typeof element === 'string') element = document.querySelector(element);
+                if (!element) return;
+                
+                // Apply basic properties without animation
+                if (props.opacity !== undefined) element.style.opacity = props.opacity;
+                if (props.y !== undefined) element.style.transform = `translateY(${props.y}px)`;
+                if (props.x !== undefined) element.style.transform = `translateX(${props.x}px)`;
+                if (props.scale !== undefined) element.style.transform = `scale(${props.scale})`;
+            },
+            from: function(element, props) {
+                // Same as to for simplicity
+                this.to(element, props);
+            },
+            fromTo: function(element, fromProps, toProps) {
+                // Apply final state directly
+                this.to(element, toProps);
+            },
+            timeline: function() {
+                return {
+                    to: function() { return this; },
+                    from: function() { return this; },
+                    fromTo: function() { return this; },
+                    play: function() {}
+                };
+            },
+            utils: {
+                random: function(min, max) { return min; }
+            }
+        };
+        
+        // Create global gsap object if it doesn't exist
+        window.gsap = window.gsap || window.fallbackGSAP;
+        
+        // Create a Chart.js fallback
+        window.fallbackChart = function(ctx, config) {
+            // Create a simple fallback for charts
+            if (!ctx) return;
+            
+            // Get the canvas element
+            const canvas = typeof ctx === 'string' ? document.querySelector(ctx) : ctx;
+            if (!canvas) return;
+            
+            // Add placeholder text
+            const ctx2d = canvas.getContext('2d');
+            if (ctx2d) {
+                ctx2d.fillStyle = 'rgba(255,255,255,0.2)';
+                ctx2d.fillRect(0, 0, canvas.width, canvas.height);
+                ctx2d.fillStyle = 'white';
+                ctx2d.font = '14px Arial';
+                ctx2d.textAlign = 'center';
+                ctx2d.fillText('Chart visualization unavailable', canvas.width/2, canvas.height/2);
+            }
+            
+            // Return an object with necessary methods to prevent errors
+            return {
+                update: function() {},
+                destroy: function() {},
+                data: { 
+                    labels: [], 
+                    datasets: [{ data: [] }] 
+                }
+            };
+        };
+        
+        // Fallback for Chart object
+        window.Chart = window.Chart || {
+            version: 'fallback',
+            instances: {},
+            controllers: {},
+            helpers: {},
+            fallback: true,
+            register: function() {},
+            unregister: function() {},
+            getChart: function() { return null; },
+            defaults: { global: {} }
+        };
+        
+        // Override the Chart constructor with our fallback if needed
+        if (typeof window.Chart === 'object' && window.Chart.fallback) {
+            window.Chart = function(ctx, config) {
+                return window.fallbackChart(ctx, config);
+            };
+            // Copy over the static properties
+            for (const prop in window.Chart) {
+                if (window.Chart.hasOwnProperty(prop)) {
+                    window.Chart[prop] = window.Chart[prop];
+                }
+            }
+        }
+    </script>
+</head>
+<body class="quiz-body">
+    <div class="noise-overlay"></div>
+    
+    <header class="quiz-header">
+        <div class="logo-container">
+            <div class="logo">
+                <span class="logo-text">Q</span>
+                <div class="logo-orbit">
+                    <div class="logo-planet"></div>
+                </div>
+            </div>
+            <h1>QUIZ'A</h1>
+        </div>
+        <div class="quiz-progress">
+            <div class="ability-indicator">
+                <span class="ability-label">Ability Estimate:</span>
+                <div class="ability-meter">
+                    <div class="ability-fill"></div>
+                </div>
+                <span class="ability-value">0.0</span>
+            </div>
+            <div class="question-counter">
+                <span class="question-number">1</span>
+                <span class="question-total">/10</span>
+            </div>
+        </div>
+        <button class="exit-button">Exit Quiz</button>
+    </header>
+
+    <main class="quiz-container">
+        <!-- Dynamic knowledge map will be created by JavaScript -->
+        <div class="knowledge-map"></div>
+
+        <div class="quiz-stage">
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Loading questions...</p>
+            </div>
+            <!-- Question card will be dynamically created by JavaScript -->
+        </div>
+        
+        <div class="quiz-sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Current Topic</h3>
+                <div class="topic-focus">
+                    <div class="topic-icon"></div>
+                    <div class="topic-details">
+                        <div class="topic-name">Topic Name</div>
+                        <div class="topic-mastery">
+                            <div class="mastery-label">Mastery:</div>
+                            <div class="mastery-bar">
+                                <div class="mastery-fill" style="width: 25%"></div>
+                            </div>
+                            <div class="mastery-percentage">25%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Question Stats</h3>
+                <div class="question-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Difficulty:</div>
+                        <div class="stat-value">0.0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Discrimination:</div>
+                        <div class="stat-value">0.0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Time Spent:</div>
+                        <div class="stat-value timer">00:00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Performance</h3>
+                <div class="performance-chart">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div class="results-overlay hidden">
+        <div class="results-container">
+            <div class="results-header">
+                <h2 class="results-title">Your Quiz Results</h2>
+                <button class="achievements-button" title="View Achievements Guide">🏆</button>
+                <button class="close-results">×</button>
+            </div>
+            
+            <div class="results-summary">
+                <div class="summary-item">
+                    <div class="summary-icon ability-icon"></div>
+                    <div class="summary-details">
+                        <div class="summary-label">Final Ability Estimate</div>
+                        <div class="summary-description">Your overall knowledge level</div>
+                        <div class="summary-value">0.00</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon questions-icon"></div>
+                    <div class="summary-details">
+                        <div class="summary-label">Questions Answered</div>
+                        <div class="summary-description">Total assessment items completed</div>
+                        <div class="summary-value">0</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon accuracy-icon"></div>
+                    <div class="summary-details">
+                        <div class="summary-label">Accuracy</div>
+                        <div class="summary-description">Percentage of correct responses</div>
+                        <div class="summary-value">0%</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon time-icon"></div>
+                    <div class="summary-details">
+                        <div class="summary-label">Total Time</div>
+                        <div class="summary-description">Time spent completing the quiz</div>
+                        <div class="summary-value">00:00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="earned-achievements">
+                <h3 class="achievements-title">Your Achievements</h3>
+                <div class="achievements-grid">
+                    <div class="achievement-badge" data-badge="sharpshooter">
+                        <div class="achievement-badge-shape">🎯</div>
+                        <div class="badge-tooltip">
+                            <div class="badge-tooltip-title">Sharpshooter</div>
+                            <div class="badge-tooltip-desc">90%+ accuracy on your answers</div>
+                        </div>
+                    </div>
+                    <div class="achievement-badge" data-badge="genius">
+                        <div class="achievement-badge-shape">🧠</div>
+                        <div class="badge-tooltip">
+                            <div class="badge-tooltip-title">Genius</div>
+                            <div class="badge-tooltip-desc">Ability estimate exceeds 2.5</div>
+                        </div>
+                    </div>
+                    <div class="achievement-badge" data-badge="speedDemon">
+                        <div class="achievement-badge-shape">⚡</div>
+                        <div class="badge-tooltip">
+                            <div class="badge-tooltip-title">Speed Demon</div>
+                            <div class="badge-tooltip-desc">Fast completion with high accuracy</div>
+                        </div>
+                    </div>
+                    <div class="achievement-badge locked" data-badge="champion">
+                        <div class="achievement-badge-shape">🏆</div>
+                        <div class="badge-tooltip">
+                            <div class="badge-tooltip-title">Champion</div>
+                            <div class="badge-tooltip-desc">Perfect score on a difficult quiz</div>
+                        </div>
+                    </div>
+                    <div class="achievement-badge locked" data-badge="scholar">
+                        <div class="achievement-badge-shape">📚</div>
+                        <div class="badge-tooltip">
+                            <div class="badge-tooltip-title">Scholar</div>
+                            <div class="badge-tooltip-desc">High scores across multiple topics</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-visualization">
+                <h3 class="visualization-title">Knowledge Map</h3>
+                <div class="knowledge-radar">
+                    <canvas id="knowledgeRadar"></canvas>
+                </div>
+            </div>
+            
+            <div class="topic-breakdown">
+                <h3 class="breakdown-title">Topic Breakdown</h3>
+                <div class="topic-list">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+            
+            <div class="results-actions">
+                <button class="action-button retry">Try Another Quiz</button>
+                <button class="action-button share">Share Results</button>
+                <button class="action-button home">Return Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load libraries before our scripts -->
+    <!-- Load Chart.js first to ensure it's available -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Try loading GSAP with fallback
+        window.addEventListener('DOMContentLoaded', function() {
+            // Log if Chart.js is loaded
+            if (typeof Chart !== 'undefined') {
+                console.log('Chart.js pre-loaded successfully, version:', Chart.version);
+            } else {
+                console.warn('Chart.js not found on page load, will try to load dynamically');
+            }
+            
+            // Load GSAP dynamically
+            function loadGSAP() {
+                return new Promise((resolve, reject) => {
+                    if (typeof gsap !== 'undefined' && gsap !== window.fallbackGSAP) {
+                        console.log('GSAP already loaded');
+                        resolve(true);
+                        return;
+                    }
+                    
+                    const script = document.createElement('script');
+                    script.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js";
+                    script.async = true;
+                    script.onload = () => {
+                        console.log('GSAP loaded successfully');
+                        resolve(true);
+                    };
+                    script.onerror = () => {
+                        console.warn('Failed to load GSAP library. Using fallback.');
+                        window.gsap = window.fallbackGSAP;
+                        resolve(false);
+                    };
+                    document.head.appendChild(script);
+                    
+                    // Set timeout for fallback
+                    setTimeout(() => {
+                        if (typeof gsap === 'undefined' || gsap === window.fallbackGSAP) {
+                            console.warn('GSAP load timeout. Using fallback.');
+                            window.gsap = window.fallbackGSAP;
+                            resolve(false);
+                        }
+                    }, 3000);
+                });
+            }
+            
+            // Load Chart.js dynamically
+            function loadChartJS() {
+                return new Promise((resolve, reject) => {
+                    if (typeof Chart !== 'undefined') {
+                        console.log('Chart.js already loaded');
+                        resolve(true);
+                        return;
+                    }
+                    
+                    const script = document.createElement('script');
+                    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+                    script.async = true;
+                    script.onload = () => {
+                        console.log('Chart.js loaded successfully');
+                        resolve(true);
+                    };
+                    script.onerror = () => {
+                        console.warn('Failed to load Chart.js library. Charts will be disabled.');
+                        resolve(false);
+                    };
+                    document.head.appendChild(script);
+                    
+                    // Set timeout for fallback
+                    setTimeout(() => {
+                        if (typeof Chart === 'undefined') {
+                            console.warn('Chart.js load timeout. Charts will be disabled.');
+                            resolve(false);
+                        }
+                    }, 3000);
+                });
+            }
+            
+            // Load libraries and then initialize
+            Promise.all([loadGSAP(), loadChartJS()])
+                .then(results => {
+                    console.log('Library loading complete. Starting quiz application.');
+                })
+                .catch(error => {
+                    console.error('Error loading libraries:', error);
+                    console.log('Continuing with fallbacks...');
+                });
+        });
+    </script>
+    
+    <!-- Our application scripts -->
+    <script src="quiz.js"></script>
+    <script src="quiz-animations.js"></script>
+    
+    <!-- Achievements Guide Modal -->
+    <div class="achievements-guide">
+        <div class="guide-container">
+            <div class="guide-header">
+                <h2 class="guide-title">Achievement Badges Guide</h2>
+                <button class="guide-close">×</button>
+            </div>
+            <div class="badges-grid">
+                <div class="badge-item">
+                    <div class="badge-icon">🧠</div>
+                    <div class="badge-name">Genius</div>
+                    <div class="badge-description">Achieve an exceptional ability estimate score, demonstrating mastery across multiple topics.</div>
+                    <div class="badge-requirement">Required: Ability estimate > 2.5</div>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">🎯</div>
+                    <div class="badge-name">Sharpshooter</div>
+                    <div class="badge-description">Demonstrate exceptional accuracy by answering difficult questions correctly.</div>
+                    <div class="badge-requirement">Required: 90%+ accuracy</div>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">⚡</div>
+                    <div class="badge-name">Speed Demon</div>
+                    <div class="badge-description">Complete the quiz with impressive speed while maintaining good accuracy.</div>
+                    <div class="badge-requirement">Required: Answer 10+ questions in under 5 minutes with 70%+ accuracy</div>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">🔥</div>
+                    <div class="badge-name">Hot Streak</div>
+                    <div class="badge-description">Answer multiple questions correctly in a row without mistakes.</div>
+                    <div class="badge-requirement">Required: 5+ consecutive correct answers</div>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">🏆</div>
+                    <div class="badge-name">Champion</div>
+                    <div class="badge-description">Earn a perfect score on a quiz covering challenging topics.</div>
+                    <div class="badge-requirement">Required: 100% accuracy on a quiz with difficulty > 1.5</div>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">📚</div>
+                    <div class="badge-name">Scholar</div>
+                    <div class="badge-description">Demonstrate broad knowledge across multiple subject areas.</div>
+                    <div class="badge-requirement">Required: Score > 70% in 3+ different topics</div>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">🧩</div>
+                    <div class="badge-name">Problem Solver</div>
+                    <div class="badge-description">Successfully solve complex problems requiring analytical thinking.</div>
+                    <div class="badge-requirement">Required: Correctly answer 3+ questions with discrimination > 1.8</div>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">🚀</div>
+                    <div class="badge-name">Fast Learner</div>
+                    <div class="badge-description">Show rapid improvement in ability estimate during a single quiz session.</div>
+                    <div class="badge-requirement">Required: Ability increase of 1.0+ in one quiz</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Achievement Notification -->
+    <div class="achievement-notification">
+        <div class="notification-icon">🏆</div>
+        <div class="notification-content">
+            <div class="notification-title">New Achievement Unlocked!</div>
+            <div class="notification-message">You've earned the "Champion" badge!</div>
+        </div>
+    </div>
+</body>
+</html>

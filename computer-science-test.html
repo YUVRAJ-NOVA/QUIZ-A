@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Science Quiz Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #2a0944;
+      color: white;
+      text-align: center;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+    }
+    
+    .loader {
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 5px solid #6E44FF;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .status {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    
+    .error {
+      color: #ff6b6b;
+      font-weight: bold;
+      max-width: 600px;
+    }
+    
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #6E44FF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    button:hover {
+      background-color: #5933d5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Computer Science Quiz Test</h1>
+  
+  <div class="loader"></div>
+  <div class="status" id="status">Setting up Computer Science quiz...</div>
+  <div class="error" id="error"></div>
+  
+  <button id="startManually" style="display: none;">Start Quiz Manually</button>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const status = document.getElementById('status');
+      const error = document.getElementById('error');
+      const startButton = document.getElementById('startManually');
+      
+      try {
+        // Set selected subject to computer-science
+        localStorage.setItem('selectedSubject', 'computer-science');
+        status.textContent = 'Successfully set subject to Computer Science';
+        
+        // Check data file exists
+        const checkDataFile = async () => {
+          try {
+            status.textContent = 'Checking if data file exists...';
+            const response = await fetch('data/computer-science-questions.json');
+            
+            if (!response.ok) {
+              throw new Error(`Failed to load data file: ${response.status} - ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            status.textContent = `Data file validated. Found ${data.questions.length} questions.`;
+            
+            // Redirect after a short delay
+            setTimeout(() => {
+              status.textContent = 'Redirecting to quiz...';
+              window.location.href = 'quiz.html';
+            }, 1500);
+            
+          } catch (err) {
+            status.textContent = 'Error checking data file.';
+            error.textContent = `Error: ${err.message}`;
+            startButton.style.display = 'block';
+          }
+        };
+        
+        checkDataFile();
+        
+        // Manual start button
+        startButton.addEventListener('click', () => {
+          window.location.href = 'quiz.html';
+        });
+        
+      } catch (err) {
+        status.textContent = 'Error setting up quiz.';
+        error.textContent = `Error: ${err.message}`;
+        startButton.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html> 

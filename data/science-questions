@@ -1,0 +1,201 @@
+{
+  "questions": [
+    {
+      "id": "sci-1",
+      "topic": "physics",
+      "text": "What is the SI unit of force?",
+      "options": [
+        {"id": "A", "text": "Joule"},
+        {"id": "B", "text": "Newton"},
+        {"id": "C", "text": "Watt"},
+        {"id": "D", "text": "Pascal"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "The SI unit of force is the Newton (N), named after Sir Isaac Newton. One Newton is the force needed to accelerate one kilogram of mass at the rate of one meter per second squared.",
+      "difficulty": 0.4,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-2",
+      "topic": "chemistry",
+      "text": "Which of the following is NOT a noble gas?",
+      "options": [
+        {"id": "A", "text": "Helium"},
+        {"id": "B", "text": "Neon"},
+        {"id": "C", "text": "Nitrogen"},
+        {"id": "D", "text": "Argon"}
+      ],
+      "correctAnswer": "C",
+      "explanation": "Nitrogen is not a noble gas. The noble gases are helium, neon, argon, krypton, xenon, and radon. Nitrogen is part of the nitrogen group (Group 15) on the periodic table.",
+      "difficulty": 0.5,
+      "discrimination": 0.85,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-3",
+      "topic": "biology",
+      "text": "Which organelle is responsible for producing energy in eukaryotic cells?",
+      "options": [
+        {"id": "A", "text": "Mitochondria"},
+        {"id": "B", "text": "Nucleus"},
+        {"id": "C", "text": "Ribosome"},
+        {"id": "D", "text": "Golgi apparatus"}
+      ],
+      "correctAnswer": "A",
+      "explanation": "Mitochondria are often called the 'powerhouses of the cell' because they generate most of the cell's supply of adenosine triphosphate (ATP), which is used as a source of chemical energy.",
+      "difficulty": 0.4,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-4",
+      "topic": "earth-science",
+      "text": "Which layer of the Earth's atmosphere contains the ozone layer?",
+      "options": [
+        {"id": "A", "text": "Troposphere"},
+        {"id": "B", "text": "Stratosphere"},
+        {"id": "C", "text": "Mesosphere"},
+        {"id": "D", "text": "Thermosphere"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "The ozone layer is located in the stratosphere, which is the second layer of the Earth's atmosphere. The stratosphere is located approximately 10-50 kilometers above the Earth's surface.",
+      "difficulty": 0.6,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-5",
+      "topic": "astronomy",
+      "text": "What is the closest star to our solar system?",
+      "options": [
+        {"id": "A", "text": "Betelgeuse"},
+        {"id": "B", "text": "Alpha Centauri"},
+        {"id": "C", "text": "Proxima Centauri"},
+        {"id": "D", "text": "Sirius"}
+      ],
+      "correctAnswer": "C",
+      "explanation": "Proxima Centauri is the closest star to our solar system, located about 4.24 light-years away. It is part of the Alpha Centauri star system but is the closest component.",
+      "difficulty": 0.5,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-6",
+      "topic": "physics",
+      "text": "Which of the following is NOT one of Newton's laws of motion?",
+      "options": [
+        {"id": "A", "text": "An object in motion stays in motion unless acted upon by an external force"},
+        {"id": "B", "text": "Force equals mass times acceleration"},
+        {"id": "C", "text": "For every action, there is an equal and opposite reaction"},
+        {"id": "D", "text": "Energy can neither be created nor destroyed"}
+      ],
+      "correctAnswer": "D",
+      "explanation": "The statement 'Energy can neither be created nor destroyed' is not one of Newton's laws of motion; it is the law of conservation of energy. Newton's three laws are: (1) An object at rest stays at rest and an object in motion stays in motion unless acted upon by an external force, (2) Force equals mass times acceleration, and (3) For every action, there is an equal and opposite reaction.",
+      "difficulty": 0.7,
+      "discrimination": 0.85,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-7",
+      "topic": "chemistry",
+      "text": "What is the pH of a neutral solution at 25°C?",
+      "options": [
+        {"id": "A", "text": "0"},
+        {"id": "B", "text": "7"},
+        {"id": "C", "text": "10"},
+        {"id": "D", "text": "14"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "The pH scale ranges from 0 to 14, with a neutral solution having a pH of 7 at 25°C. Solutions with a pH less than 7 are acidic, while solutions with a pH greater than 7 are basic or alkaline.",
+      "difficulty": 0.3,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-8",
+      "topic": "biology",
+      "text": "DNA replication is described as:",
+      "options": [
+        {"id": "A", "text": "Conservative"},
+        {"id": "B", "text": "Dispersive"},
+        {"id": "C", "text": "Semi-conservative"},
+        {"id": "D", "text": "Non-conservative"}
+      ],
+      "correctAnswer": "C",
+      "explanation": "DNA replication is described as semi-conservative because each new DNA molecule consists of one original (or old) strand and one newly synthesized strand. This was demonstrated by the Meselson-Stahl experiment in 1958.",
+      "difficulty": 0.6,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-9",
+      "topic": "earth-science",
+      "text": "Which of the following is NOT a type of tectonic plate boundary?",
+      "options": [
+        {"id": "A", "text": "Convergent boundary"},
+        {"id": "B", "text": "Divergent boundary"},
+        {"id": "C", "text": "Translational boundary"},
+        {"id": "D", "text": "Transform boundary"}
+      ],
+      "correctAnswer": "C",
+      "explanation": "Translational boundary is not a type of tectonic plate boundary. The three main types of tectonic plate boundaries are convergent (plates moving toward each other), divergent (plates moving away from each other), and transform (plates sliding past each other horizontally).",
+      "difficulty": 0.7,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": null
+    },
+    {
+      "id": "sci-10",
+      "topic": "astronomy",
+      "text": "Which of the following is NOT a planet in our solar system?",
+      "options": [
+        {"id": "A", "text": "Neptune"},
+        {"id": "B", "text": "Pluto"},
+        {"id": "C", "text": "Saturn"},
+        {"id": "D", "text": "Venus"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "Pluto is not considered a planet in our solar system according to the International Astronomical Union's (IAU) definition adopted in 2006. It is now classified as a 'dwarf planet.' The eight planets of our solar system are Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.",
+      "difficulty": 0.5,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": null
+    }
+  ],
+  "topicStructure": {
+    "physics": {
+      "name": "Physics",
+      "description": "The study of matter, energy, and the interaction between them",
+      "prerequisites": []
+    },
+    "chemistry": {
+      "name": "Chemistry",
+      "description": "The study of the composition, properties, and reactions of matter",
+      "prerequisites": ["physics"]
+    },
+    "biology": {
+      "name": "Biology",
+      "description": "The study of living organisms and their interactions with each other and their environments",
+      "prerequisites": ["chemistry"]
+    },
+    "earth-science": {
+      "name": "Earth Science",
+      "description": "The study of the Earth and its processes",
+      "prerequisites": ["physics"]
+    },
+    "astronomy": {
+      "name": "Astronomy",
+      "description": "The study of celestial objects, space, and the physical universe as a whole",
+      "prerequisites": ["physics", "earth-science"]
+    }
+  }
+} 

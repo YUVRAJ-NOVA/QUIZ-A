@@ -1,0 +1,201 @@
+{
+  "questions": [
+    {
+      "id": "math-1",
+      "topic": "algebra",
+      "text": "If 3x + 7 = 22, what is the value of x?",
+      "options": [
+        {"id": "A", "text": "x = 3"},
+        {"id": "B", "text": "x = 5"},
+        {"id": "C", "text": "x = 7"},
+        {"id": "D", "text": "x = 15"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "To solve 3x + 7 = 22, subtract 7 from both sides to get 3x = 15, then divide by 3 to find x = 5.",
+      "difficulty": 0.4,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "equation"
+    },
+    {
+      "id": "math-2",
+      "topic": "geometry",
+      "text": "What is the area of a circle with radius 6 cm?",
+      "options": [
+        {"id": "A", "text": "12π cm²"},
+        {"id": "B", "text": "36π cm²"},
+        {"id": "C", "text": "6π cm²"},
+        {"id": "D", "text": "18π cm²"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "The area of a circle is πr², where r is the radius. So the area is π × 6² = 36π cm².",
+      "difficulty": 0.5,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": "circle"
+    },
+    {
+      "id": "math-3",
+      "topic": "calculus",
+      "text": "What is the derivative of f(x) = x³ + 2x² - 4x + 7?",
+      "options": [
+        {"id": "A", "text": "f'(x) = 3x² + 4x - 4"},
+        {"id": "B", "text": "f'(x) = 3x² + 4x + 7"},
+        {"id": "C", "text": "f'(x) = x³ + 4x - 4"},
+        {"id": "D", "text": "f'(x) = 3x² + 2x - 4"}
+      ],
+      "correctAnswer": "A",
+      "explanation": "The derivative of f(x) = x³ + 2x² - 4x + 7 is f'(x) = 3x² + 4x - 4 using the power rule for each term.",
+      "difficulty": 0.7,
+      "discrimination": 0.85,
+      "guessing": 0.25,
+      "visual": "function"
+    },
+    {
+      "id": "math-4",
+      "topic": "statistics",
+      "text": "In a normal distribution, approximately what percentage of data falls within one standard deviation of the mean?",
+      "options": [
+        {"id": "A", "text": "50%"},
+        {"id": "B", "text": "68%"},
+        {"id": "C", "text": "95%"},
+        {"id": "D", "text": "99.7%"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "In a normal distribution, approximately 68% of the data falls within one standard deviation of the mean.",
+      "difficulty": 0.6,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "normalcurve"
+    },
+    {
+      "id": "math-5",
+      "topic": "probability",
+      "text": "If you roll two fair six-sided dice, what is the probability of rolling a sum of 7?",
+      "options": [
+        {"id": "A", "text": "1/6"},
+        {"id": "B", "text": "1/12"},
+        {"id": "C", "text": "1/36"},
+        {"id": "D", "text": "7/36"}
+      ],
+      "correctAnswer": "A",
+      "explanation": "There are 6 ways to roll a sum of 7 (1+6, 2+5, 3+4, 4+3, 5+2, 6+1) out of 36 possible combinations, so the probability is 6/36 = 1/6.",
+      "difficulty": 0.65,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": "dice"
+    },
+    {
+      "id": "math-6",
+      "topic": "algebra",
+      "text": "Solve for x in the equation: 2(x - 3) = 4x - 10",
+      "options": [
+        {"id": "A", "text": "x = 2"},
+        {"id": "B", "text": "x = -2"},
+        {"id": "C", "text": "x = 4"},
+        {"id": "D", "text": "x = -4"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "2(x - 3) = 4x - 10\n2x - 6 = 4x - 10\n2x - 4x = -10 + 6\n-2x = -4\nx = 2",
+      "difficulty": 0.55,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "equation"
+    },
+    {
+      "id": "math-7",
+      "topic": "geometry",
+      "text": "What is the volume of a rectangular prism with length 5 cm, width 3 cm, and height 4 cm?",
+      "options": [
+        {"id": "A", "text": "20 cm³"},
+        {"id": "B", "text": "60 cm³"},
+        {"id": "C", "text": "12 cm³"},
+        {"id": "D", "text": "30 cm³"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "The volume of a rectangular prism is length × width × height. So the volume is 5 × 3 × 4 = 60 cm³.",
+      "difficulty": 0.45,
+      "discrimination": 0.7,
+      "guessing": 0.25,
+      "visual": "prism"
+    },
+    {
+      "id": "math-8",
+      "topic": "calculus",
+      "text": "What is the integral of f(x) = 2x + 5?",
+      "options": [
+        {"id": "A", "text": "f(x) = x² + 5x + C"},
+        {"id": "B", "text": "f(x) = 2x² + 5x + C"},
+        {"id": "C", "text": "f(x) = x² + 5x"},
+        {"id": "D", "text": "f(x) = 2 + 5x + C"}
+      ],
+      "correctAnswer": "A",
+      "explanation": "The integral of f(x) = 2x + 5 is x² + 5x + C, where C is the constant of integration.",
+      "difficulty": 0.7,
+      "discrimination": 0.85,
+      "guessing": 0.25,
+      "visual": "function"
+    },
+    {
+      "id": "math-9",
+      "topic": "statistics",
+      "text": "Which measure of central tendency is most affected by outliers?",
+      "options": [
+        {"id": "A", "text": "Mean"},
+        {"id": "B", "text": "Median"},
+        {"id": "C", "text": "Mode"},
+        {"id": "D", "text": "Range"}
+      ],
+      "correctAnswer": "A",
+      "explanation": "The mean is most affected by outliers because it takes into account the value of each data point. The median and mode are less affected by extreme values.",
+      "difficulty": 0.5,
+      "discrimination": 0.8,
+      "guessing": 0.25,
+      "visual": "outliers"
+    },
+    {
+      "id": "math-10",
+      "topic": "probability",
+      "text": "If you have a bag with 3 red marbles, 4 blue marbles, and 5 green marbles, what is the probability of drawing a red marble?",
+      "options": [
+        {"id": "A", "text": "1/4"},
+        {"id": "B", "text": "3/12"},
+        {"id": "C", "text": "1/3"},
+        {"id": "D", "text": "3/5"}
+      ],
+      "correctAnswer": "B",
+      "explanation": "There are 3 + 4 + 5 = 12 marbles in total, and 3 of them are red. So the probability of drawing a red marble is 3/12 = 1/4.",
+      "difficulty": 0.4,
+      "discrimination": 0.75,
+      "guessing": 0.25,
+      "visual": "marbles"
+    }
+  ],
+  "topicStructure": {
+    "algebra": {
+      "name": "Algebra",
+      "description": "The branch of mathematics that deals with symbols and the rules for manipulating these symbols",
+      "prerequisites": []
+    },
+    "geometry": {
+      "name": "Geometry",
+      "description": "The branch of mathematics concerned with the properties and relations of points, lines, surfaces, solids, and higher dimensional analogs",
+      "prerequisites": ["algebra"]
+    },
+    "calculus": {
+      "name": "Calculus",
+      "description": "The branch of mathematics that deals with the finding and properties of derivatives and integrals of functions",
+      "prerequisites": ["algebra"]
+    },
+    "statistics": {
+      "name": "Statistics",
+      "description": "The practice or science of collecting and analyzing numerical data in large quantities",
+      "prerequisites": ["algebra", "probability"]
+    },
+    "probability": {
+      "name": "Probability",
+      "description": "The branch of mathematics that deals with the likelihood of events occurring",
+      "prerequisites": ["algebra"]
+    }
+  }
+} 
